@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+
+  omni-mainnet:
+    container_name: omni-mainnet
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/omni/mainnet:/root/.bitcoin
+    environment:
+      OMNI_CONFIG_NAME: "omni-mainnet.conf"
+    ports:
+      - "11114:11114"
+    restart: always
+
+  omni-testnet:
+    container_name: omni-testnet
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/omni/testnet:/root/.bitcoin
+    environment:
+      OMNI_CONFIG_NAME: "omni-testnet.conf"
+    ports:
+      - "11115:11115"
+    restart: always

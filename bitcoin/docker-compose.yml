@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+
+  bitcoin-mainnet:
+    container_name: bitcoin-mainnet
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/bitcoin/mainnet:/bitcoin/.bitcoin
+      - ./bitcoin-mainnet.conf:/bitcoin/.bitcoin/bitcoin.conf
+    ports:
+      - "25891:25891"
+    restart: always
+
+  bitcoin-testnet:
+    container_name: bitcoin-testnet
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/bitcoin/testnet:/bitcoin/.bitcoin
+      - ./bitcoin-testnet.conf:/bitcoin/.bitcoin/bitcoin.conf
+    ports:
+      - "25892:25892"
+    restart: always

@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+
+  eos-nodeosd-jungle:
+    container_name: eos-nodeosd-jungle
+    hostname: eos-nodeosd-jungle
+    build:
+      dockerfile: ./nodeosd/Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/eos/jungle:/eos/data
+    ports:
+      - 8888:8888
+      - 9876:9876
+    expose:
+      - "8888"
+    restart: always
+
+  eos-keosd-jungle:
+    container_name: eos-keosd-jungle
+    hostname: eos-keosd-jungle
+    build:
+      dockerfile: ./keosd/Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/eos/jungle:/eos/data
+    depends_on:
+      - eos-nodeosd-jungle
+    restart: always

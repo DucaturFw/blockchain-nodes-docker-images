@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+
+  geth-main:
+    container_name: geth-main
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/geth/main:/geth
+    environment:
+      GETH_NETWORK: # empty variable is correct
+      GETH_SYNCMODE: "fast" # full, fast, light
+      GETH_P2P_PORT: 19281
+      GETH_RPC_ADDR: "0.0.0.0" # use "localhost" if RPC should be closed from outside and "0.0.0.0" otherwise
+      GETH_RPC_PORT: 12931
+      GETH_RPC_INTERFACES: "eth,shh,web3,txpool" # eth, shh, web3, admin, debug, miner, personal, txpool
+    ports:
+      - "12931:12931"
+    restart: always
+
+  geth-ropsten:
+    container_name: geth-ropsten
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/geth/ropsten:/geth
+    environment:
+      GETH_NETWORK: --testnet
+      GETH_SYNCMODE: "full"
+      GETH_P2P_PORT: 19282
+      GETH_RPC_ADDR: "0.0.0.0"
+      GETH_RPC_PORT: 12932
+      GETH_RPC_INTERFACES: "eth,shh,web3,admin,debug,miner,personal,txpool"
+    ports:
+      - "12932:12932"
+    restart: always
+
+  geth-rinkeby:
+    container_name: geth-rinkeby
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/geth/rinkeby:/geth
+    environment:
+      GETH_NETWORK: --rinkeby
+      GETH_SYNCMODE: "full"
+      GETH_P2P_PORT: 19283
+      GETH_RPC_ADDR: "0.0.0.0" 
+      GETH_RPC_PORT: 12933
+      GETH_RPC_INTERFACES: "eth,shh,web3,admin,debug,miner,personal,txpool"
+    ports:
+      - "12933:12933"
+    restart: always

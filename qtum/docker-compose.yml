@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+
+  qtum-main:
+    container_name: qtum-main
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/qtum/main:/qtum
+    environment:
+      QTUM_CONFIG_NAME: "qtum-mainnet.conf"
+    ports:
+      - "18531:18531"
+    restart: always
+
+  qtum-testnet:
+    container_name: qtum-testnet
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/qtum/testnet:/qtum
+    environment:
+      QTUM_CONFIG_NAME: "qtum-testnet.conf"
+    ports:
+      - "18532:18532"
+    restart: always
+
+  qtum-regtest:
+    container_name: qtum-regtest
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - /nvme/blockchains/qtum/regtest:/qtum
+    environment:
+      QTUM_CONFIG_NAME: "qtum-regtest.conf"
+    ports:
+      - "18533:18533"
+    restart: always
